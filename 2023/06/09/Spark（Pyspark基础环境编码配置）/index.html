@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Spark（Pyspark基础环境编码配置） | ssyyxx123</title>
+    
+    
+        <meta name="keywords" content="搭建,spark" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="spark（pyspark基础编码环境）（一）、pyspark环境配置安装。 PySpark是Spark官方提供的一个Python类库，内置了Spark API，可以通过PySpark类库来编写Spark程序，并提交到Spark集群中运行。前情提示： （1）将课程资料中提供的的hadoop-3.3.0文件，复制到某个盘符下（中文的且无空格的）。 （2）将文件夹内bin内的Hadoop.dll复制到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark（Pyspark基础环境编码配置）">
+<meta property="og:url" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/index.html">
+<meta property="og:site_name" content="ssyyxx123">
+<meta property="og:description" content="spark（pyspark基础编码环境）（一）、pyspark环境配置安装。 PySpark是Spark官方提供的一个Python类库，内置了Spark API，可以通过PySpark类库来编写Spark程序，并提交到Spark集群中运行。前情提示： （1）将课程资料中提供的的hadoop-3.3.0文件，复制到某个盘符下（中文的且无空格的）。 （2）将文件夹内bin内的Hadoop.dll复制到">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps154.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps155.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps156.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps157.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps158.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps159.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps160.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps161.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps162.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps163.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps164.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps165.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps166.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps167.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps168.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps169.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps170.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps171.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps172.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps173.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps174.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps175.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps176.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps177.jpg">
+<meta property="article:published_time" content="2023-06-09T00:13:10.000Z">
+<meta property="article:modified_time" content="2023-06-09T01:12:54.694Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="搭建">
+<meta property="article:tag" content="spark">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ssyyxx123.github.io/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps154.jpg">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="ssyyxx123" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">ssyyxx123</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="https://www.gravatar.com/avatar/dd6a5f2a78c5e4932dc9641de7559730" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="https://www.gravatar.com/avatar/dd6a5f2a78c5e4932dc9641de7559730?s=128" />
+            <h2 id="name">ssyyxx123</h2>
+            <h3 id="title">Designer &amp; Programmer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>NeiMengGu, China</span>
+            <a id="follow" target="_blank" href="https://github.com/ssyyxx123/">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                9
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                5
+                <span>tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/ssyyxx123/ssyyxx123.github.io" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://stackoverflow.com/users/7277090/ssyyxx123?tab=profile" target="_blank" title="stack-overflow" class=tooltip>
+                            <i class="fa fa-stack-overflow"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://codepen.io/ssyyxx123/" target="_blank" title="codepen" class=tooltip>
+                            <i class="fa fa-codepen"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2023/06/07/Spark-HA-Yarn%E9%85%8D%E7%BD%AE/">Spark HA & Yarn配置</a></li>  <li class="file"><a href="/2023/06/07/Spark(stand-alone)%E9%85%8D%E7%BD%AE/">Spark（stand-alone）配置</a></li>  <li class="file"><a href="/2023/06/09/Hive%E9%85%8D%E7%BD%AE/">Hive配置</a></li>  <li class="file"><a href="/2023/06/09/Git%E9%85%8D%E7%BD%AE/">Git配置</a></li>  <li class="file"><a href="/2023/06/09/Docker%E9%85%8D%E7%BD%AE/">Docker配置</a></li>  <li class="file"><a href="/2023/06/09/Spark%EF%BC%88local%EF%BC%89%E9%85%8D%E7%BD%AE/">Spark（local）配置</a></li>  <li class="file active"><a href="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/">Spark（Pyspark基础环境编码配置）</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/2023/06/07/hello-world/">Hello World</a></li>  <li class="file"><a href="/2023/06/07/My-New-Post/">My New Post</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-Spark（Pyspark基础环境编码配置）" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/spark/" rel="tag">spark</a>, <a class="tag-link-link" href="/tags/%E6%90%AD%E5%BB%BA/" rel="tag">搭建</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/">
+            <time datetime="2023-06-09T00:13:10.000Z" itemprop="datePublished">2023-06-09</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/ssyyxx123/git@github.com:ssyyxx123/ssyyxx123.github.io/raw/master/source/_posts/Spark（Pyspark基础环境编码配置）.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/ssyyxx123/git@github.com:ssyyxx123/ssyyxx123.github.io/edit/master/source/_posts/Spark（Pyspark基础环境编码配置）.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/ssyyxx123/git@github.com:ssyyxx123/ssyyxx123.github.io/commits/master/source/_posts/Spark（Pyspark基础环境编码配置）.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Spark（Pyspark基础环境编码配置）
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h2 id="spark（pyspark基础编码环境）"><a href="#spark（pyspark基础编码环境）" class="headerlink" title="spark（pyspark基础编码环境）"></a><strong>spark（pyspark基础编码环境）</strong></h2><p>（一）、pyspark环境配置安装。</p>
+<p>PySpark是Spark官方提供的一个Python类库，内置了Spark API，可以通过PySpark类库来编写Spark程序，并提交到Spark集群中运行。前情提示：</p>
+<p>（1）将课程资料中提供的的hadoop-3.3.0文件，复制到某个盘符下（中文的且无空格的）。</p>
+<p>（2）将文件夹内bin内的Hadoop.dll复制到C:\Windows\Systmctl32里面去。</p>
+<p>（3）在系统环境变量中配置HADOOP_HOME，指向hadoop-3.3.0文件夹的路径.</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps154.jpg" alt="img"> </p>
+<p>（二）本机PySpark环境配置</p>
+<p>在前面部署Spark的时候，已经在Linux系统上部署了acaconda的Python环境，详见Spark的Stand Alone模式部署章节。故本次在Windows上安装anaconda，并配置PySpark库。具体安装步骤如下：</p>
+<p>（1）在课程资料中选择anaconda应用程序双击安装。</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps155.jpg" alt="img"> </p>
+<p>（2）一直选择Next，进行安装。</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps156.png" alt="img"> </p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps157.png" alt="img"> </p>
+<p>注意：选择第一个，将anaconda添加至我的环境变量中！</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps158.png" alt="img"> </p>
+<p>（1）安装结束后会出现anaconda3文件夹。打开Anaconda Prompt(anaconda),会出现base，即为安装成功。</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps159.jpg" alt="img"> </p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps160.jpg" alt="img"> </p>
+<p>（4）配置国内源，加速网络下载。</p>
+<p>1、在Anaconda Prompt(anaconda)中执行conda config –set show_channel</p>
+<p>_urls yes。</p>
+<p>2、将如下内容替换到C:\Users\用户名.condarc文件中。</p>
+<p>channels:</p>
+<p> - defaults</p>
+<p>show_channel_urls: true</p>
+<p>default_channels:</p>
+<p> - <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main">https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main</a></p>
+<p> - <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r">https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r</a></p>
+<p> - <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2">https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2</a></p>
+<p>custom_channels:</p>
+<p> conda-forge: <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud">https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</a></p>
+<p> msys2: <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud">https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</a></p>
+<p> bioconda: <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud">https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</a></p>
+<p> menpo: <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud">https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</a></p>
+<p> pytorch: <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud">https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</a></p>
+<p> simpleitk: <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud">https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</a></p>
+<p>（5）创建虚拟环境</p>
+<p>1、创建虚拟环境 pyspark, 基于Python 3.8</p>
+<p>conda create -n pyspark python&#x3D;3.8</p>
+<p>2、切换到虚拟环境内</p>
+<p>conda activate pyspark</p>
+<p>3、在虚拟环境内安装包</p>
+<p>pip install pyhive pyspark jieba -i <a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/</a></p>
+<p>simple</p>
+<p>安装成功示例：</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps161.jpg" alt="img"> </p>
+<p>（三）PyCharm中配置Python解释器</p>
+<p>（1）配置本地解释器：创建Python项目，选择conda虚拟环境PySpark中的Python.exe解释器。</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps162.jpg" alt="img"> </p>
+<p>（2）配置远程SSH Linux解释器</p>
+<p>1、远程SSH python pyspark环境</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps163.jpg" alt="img"> </p>
+<p>2、添加新的远程连接</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps164.jpg" alt="img"><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps165.jpg" alt="img"> </p>
+<p>3、设置虚拟的python环境路径</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps166.jpg" alt="img"> </p>
+<p>（四）WordCount应用实战</p>
+<p>可以选择在本地的PySpark环境中执行spark代码，也可以选择在虚拟机环境PySpark中执行。选择本地的就是使用conda环境，应用其中的PySpark环境执行，来读取本地文件，完成单词计数的实例。选择远程虚拟机中的PySpark环境，需要SSH连接到服务器（这里需要安装Pycharm专业版），注意：无论是选择那种方案，都是在PyCharm软件中去执行，完成上述过程。</p>
+<p>（1）WordCount代码本地执行</p>
+<p>准备pyspark代码以及本地文件words.txt，在PyCharm中执行。</p>
+<p># coding:utf8</p>
+<p>from pyspark import SparkConf, SparkContext</p>
+<p># import os</p>
+<p>import os</p>
+<p>os.environ[‘PYSPARK_PYTHON’]&#x3D;’D:\anaconda3\envs\pyspark\python.exe’</p>
+<p>os.environ [‘JAVA_HOME’] &#x3D; ‘D:\Java\jdk1.8.0_241’</p>
+<p>#os.environ[‘PYSPARK_PYTHON’]&#x3D;’&#x2F;export&#x2F;server&#x2F;anaconda3&#x2F;envs&#x2F;pyspark&#x2F;bin&#x2F;python3.8’</p>
+<p>if <strong>name</strong> &#x3D;&#x3D; ‘<strong>main</strong>‘:</p>
+<p>  conf &#x3D; SparkConf().setAppName(“WordCountHelloWorld”).setMaster(“local[*]”)</p>
+<p>  # 通过SparkConf对象构建SparkContext对象</p>
+<p>  sc &#x3D; SparkContext(conf&#x3D;conf)</p>
+<p>  # 需求 : wordcount单词计数, 读取HDFS上的words.txt文件, 对其内部的单词统计出现 的数量</p>
+<p>  # 读取文件</p>
+<p>  #file_rdd &#x3D; sc.textFile(“hdfs:&#x2F;&#x2F;node1:8020&#x2F;input&#x2F;words.txt”)</p>
+<p>  #file_rdd &#x3D; sc.textFile(“file:&#x2F;&#x2F;&#x2F;tmp&#x2F;pycharm_project_621&#x2F;data&#x2F;words.txt”)</p>
+<p>  file_rdd &#x3D; sc.textFile(“D:\数据挖掘与分析实验报告合集\pyspark\data\input\words.txt”)</p>
+<p>  # 将单词进行切割, 得到一个存储全部单词的集合对象</p>
+<p>  words_rdd &#x3D; file_rdd.flatMap(lambda line: line.split(“ “))</p>
+<p>  # 将单词转换为元组对象, key是单词, value是数字1</p>
+<p>  words_with_one_rdd &#x3D; words_rdd.map(lambda x: (x, 1))</p>
+<p>  # 将元组的value 按照key来分组, 对所有的value执行聚合操作(相加)</p>
+<p>  result_rdd &#x3D; words_with_one_rdd.reduceByKey(lambda a, b: a + b)</p>
+<p>  # 通过collect方法收集RDD的数据打印输出结果</p>
+<p>print(result_rdd.collect())</p>
+<p>运行结果截图：</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps167.jpg" alt="img"> </p>
+<p>（2）WordCount代码远程服务器上执行。</p>
+<p>通过SSH连接到远程服务器上，详见上述操作。</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps168.jpg" alt="img"> </p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps169.jpg" alt="img"> </p>
+<p>完成与服务器连接后，会在服务器中的&#x2F;tmp文件夹下新建了pycharm_project_xxx文件夹用于放置本地的同步代码。</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps170.jpg" alt="img"> </p>
+<p>（3）读取HDFS上的文件</p>
+<p>1、将读取文件路径改为hdfs上的&#x2F;input&#x2F;words.txt</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps171.jpg" alt="img"> </p>
+<p>2、在hdfs上新建&#x2F;input文件夹，使用命令hadoop fs -mkdir &#x2F;input</p>
+<p>3、上传words.txt到hdfs中，使用命令hadoop fs -put words.txt &#x2F;input&#x2F;</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps172.jpg" alt="img"> </p>
+<p>4、在pycharm中执行spark代码</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps173.jpg" alt="img"> </p>
+<p>（五）spark-submit作业提交</p>
+<p>（1）local本地模式</p>
+<p>首先将helloword.py程序放到&#x2F;root&#x2F;目录下，使用命令bin&#x2F;spark-submit –master local[*] &#x2F;root&#x2F;helloworld.py完成提交作业。</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps174.jpg" alt="img"> </p>
+<p>（2）spark on yarn模式</p>
+<p>使用命令bin&#x2F;spark-submit –master yarn &#x2F;root&#x2F;helloworld.py完成提交作业。</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps175.jpg" alt="img"> </p>
+<p>（3）使用历史服务器查看任务执行情况 node1:18080</p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps176.jpg" alt="img"> </p>
+<p><img src="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/wps177.jpg" alt="img"></p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+    
+        <a href="/2023/06/09/Spark%EF%BC%88local%EF%BC%89%E9%85%8D%E7%BD%AE/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Spark（local）配置</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            John Doe &copy; 2023 
+            <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a target="_blank" rel="noopener" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
