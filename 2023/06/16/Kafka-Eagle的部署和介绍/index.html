@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Kafka-Eagle的部署和介绍 | ssyyxx123</title>
+    
+    
+        <meta name="keywords" content="部署,Eagle" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="一、Kafka-eagle部署（1） 上传安装包，解压，设置软连接 12tar -zxvf kafka-eagle-web-2.0.2-bin.tar.gzln -s  kafka-eagle-web-2.0.2-bin.tar.gz  kafka-eagle    （2） 配置环境变量:JAVA_HOME 和 KE_HOME 123456vi &#x2F;etc&#x2F;profile export JAVA_H">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kafka-Eagle的部署和介绍">
+<meta property="og:url" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:site_name" content="ssyyxx123">
+<meta property="og:description" content="一、Kafka-eagle部署（1） 上传安装包，解压，设置软连接 12tar -zxvf kafka-eagle-web-2.0.2-bin.tar.gzln -s  kafka-eagle-web-2.0.2-bin.tar.gz  kafka-eagle    （2） 配置环境变量:JAVA_HOME 和 KE_HOME 123456vi &#x2F;etc&#x2F;profile export JAVA_H">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616160311950.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616170503279.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616170627903.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616170657323.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2h5al9raW5n,size_16,color_FFFFFF,t_70.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616160713196.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616160740683.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616160919433.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616161002098.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616161134106.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616162158401.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616162439009.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616162505200.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616162606821.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616162831689.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616163016336.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616164040315.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616164225880.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616164257939.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616164419681.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616164838136.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616164930400.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616165427097.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616165454978.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616165925372.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616165955880.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616170128199.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616170200667.png">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616170253421.png">
+<meta property="article:published_time" content="2023-06-16T07:22:08.000Z">
+<meta property="article:modified_time" content="2023-06-16T09:07:16.449Z">
+<meta property="article:author" content="syx">
+<meta property="article:tag" content="部署">
+<meta property="article:tag" content="Eagle">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ssyyxx123.github.io/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616160311950.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="ssyyxx123" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/images/1.jpg" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">ssyyxx123</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/images/avatar.png" />
+            <h2 id="name">ssyyxx123</h2>
+            <h3 id="title">清醒 自律 知进退 明得失</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>NeiMengGu, China</span>
+            <a id="follow" target="_blank" href="https://github.com/ssyyxx123/">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                13
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                11
+                <span>tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/ssyyxx123/ssyyxx123.github.io" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2023/06/07/Spark-HA-Yarn%E9%85%8D%E7%BD%AE/">Spark HA & Yarn配置</a></li>  <li class="file"><a href="/2023/06/07/Spark(stand-alone)%E9%85%8D%E7%BD%AE/">Spark（stand-alone）配置</a></li>  <li class="file"><a href="/2023/06/09/Hive%E9%85%8D%E7%BD%AE/">Hive配置</a></li>  <li class="file"><a href="/2023/06/09/Git%E9%85%8D%E7%BD%AE/">Git配置</a></li>  <li class="file"><a href="/2023/06/09/Docker%E9%85%8D%E7%BD%AE/">Docker配置</a></li>  <li class="file"><a href="/2023/06/09/Spark%EF%BC%88local%EF%BC%89%E9%85%8D%E7%BD%AE/">Spark（local）配置</a></li>  <li class="file"><a href="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/">Spark（Pyspark基础环境编码配置）</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具2
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2023/06/14/Flume%E9%85%8D%E7%BD%AE/">Flume配置</a></li>  <li class="file"><a href="/2023/06/14/Sqoop%E9%85%8D%E7%BD%AE/">Sqoop配置</a></li>  <li class="file"><a href="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/">Zookeeper配置</a></li>  <li class="file"><a href="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/">Kafka配置</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            工具3
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file active"><a href="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/">Kafka-Eagle的部署和介绍</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/2023/06/07/hello-world/">Hello World</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-Kafka-Eagle的部署和介绍" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E5%B7%A5%E5%85%B73/">工具3</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Eagle/" rel="tag">Eagle</a>, <a class="tag-link-link" href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag">部署</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/">
+            <time datetime="2023-06-16T07:22:08.000Z" itemprop="datePublished">2023-06-16</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/ssyyxx123/git@github.com:ssyyxx123/ssyyxx123.github.io/raw/master/source/_posts/Kafka-Eagle的部署和介绍.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/ssyyxx123/git@github.com:ssyyxx123/ssyyxx123.github.io/edit/master/source/_posts/Kafka-Eagle的部署和介绍.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/ssyyxx123/git@github.com:ssyyxx123/ssyyxx123.github.io/commits/master/source/_posts/Kafka-Eagle的部署和介绍.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Kafka-Eagle的部署和介绍
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h2 id="一、Kafka-eagle部署"><a href="#一、Kafka-eagle部署" class="headerlink" title="一、Kafka-eagle部署"></a>一、Kafka-eagle部署</h2><p>（1） 上传安装包，解压，设置软连接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf kafka-eagle-web-2.0.2-bin.tar.gz</span><br><span class="line">ln -s  kafka-eagle-web-2.0.2-bin.tar.gz  kafka-eagle</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（2） 配置环境变量:JAVA_HOME 和 KE_HOME</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile </span><br><span class="line"></span><br><span class="line">export JAVA_HOME=/export/server/jdk</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br><span class="line">export KE_HOME=/export/server/kafka-eagle</span><br><span class="line">export PATH=$PATH:$KE_HOME/bin</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（3） 配置 KafkaEagle</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server/kafka-eagle/conf </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi system-config.properties</span><br></pre></td></tr></table></figure>
+
+<p>需要更改的地方：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">kafka.eagle.zk.cluster.alias=cluster1</span><br><span class="line"></span><br><span class="line">cluster1.zk.list=node1:2181,node2:2181,node3:2181</span><br><span class="line"></span><br><span class="line">cluster1.kafka.eagle.broker.size=3</span><br><span class="line"></span><br><span class="line">kafka.eagle.url=jdbc:sqlite:/export/data/db/ke.db</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（4）启动前需要手动创建&#x2F;export&#x2F;data&#x2F;db目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /export/data/db</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（5）启动kafka集群、zookeeper集群</p>
+<p>（6） 启动Eagle</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/export/server/kafka-eagle/bin/ke.sh start</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（7）安装成功实例</p>
+<p>![屏幕截图 2023-06-16 153736](.&#x2F;&#x2F;Kafka-Eagle的部署和介绍&#x2F;屏幕截图 2023-06-16 153736.png)</p>
+<p>（7）登录网址<a target="_blank" rel="noopener" href="http://192.168.88.151:8048/">http://192.168.88.151:8048/</a></p>
+<p>​         Account:admin ,Password:123456</p>
+<p>![屏幕截图 2023-06-16 153851](.&#x2F;&#x2F;Kafka-Eagle的部署和介绍&#x2F;屏幕截图 2023-06-16 153851.png)</p>
+<p>![屏幕截图 2023-06-16 153912](.&#x2F;&#x2F;Kafka-Eagle的部署和介绍&#x2F;屏幕截图 2023-06-16 153912.png)</p>
+<p>![屏幕截图 2023-06-16 153927](.&#x2F;&#x2F;Kafka-Eagle的部署和介绍&#x2F;屏幕截图 2023-06-16 153927.png)</p>
+<h3 id="二、eagle介绍"><a href="#二、eagle介绍" class="headerlink" title="二、eagle介绍"></a>二、eagle介绍</h3><p>1、Dashboard：数据面板</p>
+<p>负责展示Kafka集群的Broker数、Topic数、Consumer数、以及Topic LogSize Top10和Topic Capacity Top10数据。</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616160311950.png"></p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616170503279.png" alt="image-20230616170503279"></p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616170627903.png" alt="image-20230616170627903"></p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616170657323.png" alt="image-20230616170657323"></p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2h5al9raW5n,size_16,color_FFFFFF,t_70.png" alt="img"></p>
+<p>2、BScreen：数据大屏</p>
+<p>该模块包含展示消费者和生产者当日及最近7天趋势、Kafka集群读写速度、Kafka集群历史总记录等。</p>
+<p>![屏幕截图 2023-06-16 153927](.&#x2F;&#x2F;Kafka-Eagle的部署和介绍&#x2F;屏幕截图 2023-06-16 153927-16869018760397.png)</p>
+<p>3、Topic使用：</p>
+<p>（1）Create：创建Topic</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616160713196.png" alt="image-20230616160713196"></p>
+<p>（2）List：Topic列表</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616160740683.png" alt="image-20230616160740683"></p>
+<p>（3）KSQL：支持sql查询页面</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616160919433.png" alt="image-20230616160919433"></p>
+<p>（4）Mock：向Topic发送消息</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616161002098.png" alt="image-20230616161002098"></p>
+<p>（5）Manager：主题配置</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616161134106.png" alt="image-20230616161134106"></p>
+<p>（6）Hub：主题枢纽：</p>
+<p>用来迁移主题数据或者平衡</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616162158401.png" alt="image-20230616162158401"></p>
+<p>4、Consumers：消费者列表</p>
+<p>该模块包含监控不同消费者组中的Topic被消费的详情，例如LogSize、Offsets、以及Lag等。同时，支持查看Lag的历史趋势图。</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616162439009.png" alt="image-20230616162439009"></p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616162505200.png" alt="image-20230616162505200"></p>
+<p>5、Cluster：集群管理</p>
+<p>该模块包含Kafka集群和Zookeeper集群的详情展示，例如Kafka的IP和端口、版本号、启动时间、Zookeeper的Leader和Follower。同时，还支持多Kafka集群切换，以及Zookeeper Client数据查看等功能。</p>
+<p>（1）ZK&amp;Kafka</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616162606821.png" alt="image-20230616162606821"></p>
+<p>（2）Mulit-Clusters：</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616162831689.png" alt="image-20230616162831689"></p>
+<p>（3）ZkCli</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616163016336.png" alt="image-20230616163016336"></p>
+<p>6、Metrics：监控数据指标</p>
+<p>该模块包含监控Kafka集群和Zookeeper集群的核心指标，包含Kafka的消息发送趋势、消息大小接收与发送趋势、Zookeeper的连接数趋势等。同时，还支持查看Broker的瞬时指标数据。</p>
+<p>（1）Brokers：</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616164040315.png" alt="image-20230616164040315"></p>
+<p>（2）Kafka：</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616164225880.png" alt="image-20230616164225880"></p>
+<p>（3）Zookeeper：</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616164257939.png" alt="image-20230616164257939"></p>
+<p>7、Connect：连接配置管理器</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616164419681.png" alt="image-20230616164419681"></p>
+<p>8、Channel：配置</p>
+<p> 选择 不同的警告类型，用于警告使用者和群集运行状况，该模块包含告警集群异常和消费者应用Lag异常。同时，支持多种IM告警方式，例如邮件、钉钉、微信、Webhook等。</p>
+<p>（1）Config：</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616164838136.png" alt="image-20230616164838136"></p>
+<p>（2）List：告警列表</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616164930400.png" alt="image-20230616164930400"></p>
+<p>9、AlarmConsumer：报警消费者</p>
+<p>（1）Add：消费积压告警</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616165427097.png" alt="image-20230616165427097"></p>
+<p>（2）Modify：消费告警列表操作</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616165454978.png" alt="image-20230616165454978"></p>
+<p>10、AlarmCluster：节点告警</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616165925372.png" alt="image-20230616165925372"></p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616165955880.png" alt="image-20230616165955880"></p>
+<p>11、System：系统管理</p>
+<p>该模块包含用户管理，例如创建用户、用户授权、资源管理等</p>
+<p>（1）User：用户配置</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616170128199.png" alt="image-20230616170128199"></p>
+<p>（2）Role：角色配置</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616170200667.png" alt="image-20230616170200667"></p>
+<p>（3）Resource：组织结构图</p>
+<p><img src="/2023/06/16/Kafka-Eagle%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BB%8B%E7%BB%8D/image-20230616170253421.png" alt="image-20230616170253421"></p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+    
+        <a href="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Kafka配置</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            syx &copy; 2023 
+            <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a target="_blank" rel="noopener" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
