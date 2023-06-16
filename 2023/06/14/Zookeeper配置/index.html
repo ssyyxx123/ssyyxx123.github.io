@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Zookeeper配置 | ssyyxx123</title>
+    
+    
+        <meta name="keywords" content="搭建,Zookeeper" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="zookeeper安装安装前需要安装好jdk，检测集群时间是否同步，检测防火墙是否关闭，检测主机 ip映射有没有配置 （1）在node1上切换到 &#x2F;export&#x2F;server 目录下，上传zookeeper压缩包并解压，设置一个软连接。 切换到server目录下：cd &#x2F;export&#x2F;server 解压zookeeper压缩包：tar -zxvf zooke">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zookeeper配置">
+<meta property="og:url" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="ssyyxx123">
+<meta property="og:description" content="zookeeper安装安装前需要安装好jdk，检测集群时间是否同步，检测防火墙是否关闭，检测主机 ip映射有没有配置 （1）在node1上切换到 &#x2F;export&#x2F;server 目录下，上传zookeeper压缩包并解压，设置一个软连接。 切换到server目录下：cd &#x2F;export&#x2F;server 解压zookeeper压缩包：tar -zxvf zooke">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps96.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps97.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps98.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps99.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps100.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps101.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps102.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps103.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps104.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps105.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps106.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps107.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps108.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps109.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps110.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps111.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps112.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps113.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps114.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps115.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps116.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps117.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps118.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps119.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps120.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps121.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps122.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps123.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps124.jpg">
+<meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps125.jpg">
+<meta property="article:published_time" content="2023-06-14T05:20:32.000Z">
+<meta property="article:modified_time" content="2023-06-16T06:56:57.266Z">
+<meta property="article:author" content="syx">
+<meta property="article:tag" content="搭建">
+<meta property="article:tag" content="Zookeeper">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps96.jpg">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="ssyyxx123" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/images/1.jpg" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">ssyyxx123</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/images/avatar.png" />
+            <h2 id="name">ssyyxx123</h2>
+            <h3 id="title">清醒 自律 知进退 明得失</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>NeiMengGu, China</span>
+            <a id="follow" target="_blank" href="https://github.com/ssyyxx123/">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                12
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                9
+                <span>tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/ssyyxx123/ssyyxx123.github.io" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2023/06/07/Spark-HA-Yarn%E9%85%8D%E7%BD%AE/">Spark HA & Yarn配置</a></li>  <li class="file"><a href="/2023/06/07/Spark(stand-alone)%E9%85%8D%E7%BD%AE/">Spark（stand-alone）配置</a></li>  <li class="file"><a href="/2023/06/09/Hive%E9%85%8D%E7%BD%AE/">Hive配置</a></li>  <li class="file"><a href="/2023/06/09/Git%E9%85%8D%E7%BD%AE/">Git配置</a></li>  <li class="file"><a href="/2023/06/09/Docker%E9%85%8D%E7%BD%AE/">Docker配置</a></li>  <li class="file"><a href="/2023/06/09/Spark%EF%BC%88local%EF%BC%89%E9%85%8D%E7%BD%AE/">Spark（local）配置</a></li>  <li class="file"><a href="/2023/06/09/Spark%EF%BC%88Pyspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E7%BC%96%E7%A0%81%E9%85%8D%E7%BD%AE%EF%BC%89/">Spark（Pyspark基础环境编码配置）</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            工具2
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/2023/06/14/Flume%E9%85%8D%E7%BD%AE/">Flume配置</a></li>  <li class="file"><a href="/2023/06/14/Sqoop%E9%85%8D%E7%BD%AE/">Sqoop配置</a></li>  <li class="file active"><a href="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/">Zookeeper配置</a></li>  <li class="file"><a href="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/">Kafka配置</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/2023/06/07/hello-world/">Hello World</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-Zookeeper配置" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E5%B7%A5%E5%85%B72/">工具2</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Zookeeper/" rel="tag">Zookeeper</a>, <a class="tag-link-link" href="/tags/%E6%90%AD%E5%BB%BA/" rel="tag">搭建</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/">
+            <time datetime="2023-06-14T05:20:32.000Z" itemprop="datePublished">2023-06-14</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/ssyyxx123/git@github.com:ssyyxx123/ssyyxx123.github.io/raw/master/source/_posts/Zookeeper配置.md'> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/ssyyxx123/git@github.com:ssyyxx123/ssyyxx123.github.io/edit/master/source/_posts/Zookeeper配置.md'> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="noopener" href='https://github.com/ssyyxx123/git@github.com:ssyyxx123/ssyyxx123.github.io/commits/master/source/_posts/Zookeeper配置.md'> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Zookeeper配置
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h2 id="zookeeper安装"><a href="#zookeeper安装" class="headerlink" title="zookeeper安装"></a><strong>zookeeper安装</strong></h2><p>安装前需要安装好jdk，检测集群时间是否同步，检测防火墙是否关闭，检测主机 ip映射有没有配置</p>
+<p>（1）在node1上切换到 &#x2F;export&#x2F;server 目录下，上传zookeeper压缩包并解压，设置一个软连接。</p>
+<p>切换到server目录下：cd &#x2F;export&#x2F;server</p>
+<p>解压zookeeper压缩包：tar -zxvf zookeeper.tar.gz -C &#x2F;export&#x2F;server&#x2F;  </p>
+<p>设置软连接：ln -s  &#x2F;export&#x2F;server&#x2F;zookeeper-3.4.6&#x2F; zookeeper </p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps96.jpg" alt="img"> </p>
+<p>\1. 修改环境变量（三台都修改）</p>
+<p>vi &#x2F;etc&#x2F;profile</p>
+<p>export ZOOKEEPER_HOME&#x3D;&#x2F;export&#x2F;server&#x2F;zookeeper</p>
+<p>export PATH&#x3D;$PATH:$ZOOKEEPER_HOME&#x2F;bin</p>
+<p>source &#x2F;etc&#x2F;profile</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps97.jpg" alt="img"> </p>
+<p>\2. 修改zookeeper配置文件</p>
+<p>cd &#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;conf&#x2F;  切换到conf&#x2F;目录下</p>
+<p>cp zoo_sample.cfg zoo.cfg  复制zoo_sample.cfg文件，文件名为zoo.cfg</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps98.jpg" alt="img"> </p>
+<p>创建文件：mkdir -p &#x2F;export&#x2F;data&#x2F;zookeeper&#x2F;zkdatas&#x2F;   </p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps99.jpg" alt="img"> </p>
+<p>vim zoo.cfg </p>
+<p>填充以下内容：</p>
+<p>#Zookeeper的数据存放目录</p>
+<p>dataDir &#x3D; &#x2F;export&#x2F;data&#x2F;zookeeper&#x2F;zkdatas&#x2F;</p>
+<p># 保留多少个快照</p>
+<p>autopurge.snapRetainCount &#x3D; 3</p>
+<p># 日志多少小时清理一次</p>
+<p>autopurge.purgeInterval &#x3D; 1</p>
+<p># 集群中服务器地址</p>
+<p>server.1 &#x3D; node1:2888:3888</p>
+<p>server.2 &#x3D; node2:2888:3888</p>
+<p>server.3 &#x3D; node3:2888:3888</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps100.jpg" alt="img"> </p>
+<p>\3. 添加myid配置</p>
+<p>在node1主机的&#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;zkdatas&#x2F;这个路径下创建一个文件，文件名为myid ,文件内容为1</p>
+<p>echo 1 &gt; &#x2F;export&#x2F;data&#x2F;zookeeper&#x2F;zkdatas&#x2F;myid </p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps101.jpg" alt="img"> </p>
+<p>\4. 安装包分发并修改myid的值</p>
+<p>在node1主机上，将安装包分发到其他机器</p>
+<p>第一台机器上面执行以下两个命令</p>
+<p>cd &#x2F;export&#x2F;server&#x2F;</p>
+<p>scp -r &#x2F;export&#x2F;server&#x2F;zookeeper-3.4.6&#x2F; root@node2:&#x2F;export&#x2F;server&#x2F;  </p>
+<p>分发node2</p>
+<p>scp -r &#x2F;export&#x2F;server&#x2F;zookeeper-3.4.6&#x2F; root@node3:&#x2F;export&#x2F;server&#x2F;  </p>
+<p>分发node3</p>
+<p>ln -s zookeeper-3.4.6&#x2F; zookeeper  建立软连接（node2 node3）</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps102.jpg" alt="img"> </p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps103.jpg" alt="img"> </p>
+<p>echo 2 &gt; &#x2F;export&#x2F;data&#x2F;zookeeper&#x2F;zkdatas&#x2F;myid  （node2上执行）</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps104.jpg" alt="img"> </p>
+<p>echo 3 &gt; &#x2F;export&#x2F;data&#x2F;zookeeper&#x2F;zkdatas&#x2F;myid  （node3上执行）</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps105.jpg" alt="img"> </p>
+<p>\5. 三台机器启动zookeeper服务</p>
+<p>（1）&#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;bin&#x2F;zkServer.sh start</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps106.jpg" alt="img"> </p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps107.jpg" alt="img"> </p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps108.jpg" alt="img"> </p>
+<p>（2）&#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;bin&#x2F;zkServer.sh status 三台主机分别查看启动状态</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps109.jpg" alt="img"><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps110.jpg" alt="img"> </p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps111.jpg" alt="img"> </p>
+<p>\6. 编写一个脚本批量启动node1，2，3的zookeeper</p>
+<p>（1）创建shell目录</p>
+<p>mkdir &#x2F;export&#x2F;shell</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps112.jpg" alt="img"> </p>
+<p>（2）再此目录下建立一个zkall.sh文件</p>
+<p>vim zkall.sh</p>
+<p>添加以下内容：</p>
+<p>#!&#x2F;bin&#x2F;bash</p>
+<p>case $1 in</p>
+<p>“start”){</p>
+<p>​	for i in node1 node2 node3</p>
+<p>do</p>
+<p>​		echo ———- zookeeper $i 启动 ————</p>
+<p>​		ssh $i “&#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;bin&#x2F;zkServer.sh start”</p>
+<p>​	done</p>
+<p>};;</p>
+<p>“stop”){</p>
+<p>​	for i in node1 node2 node3</p>
+<p>​	do</p>
+<p>​		echo ———- zookeeper $i 停止 ———— </p>
+<p>​		ssh $i “&#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;bin&#x2F;zkServer.sh stop”</p>
+<p>​	done</p>
+<p>};;</p>
+<p>“status”){</p>
+<p>​	for i in node1 node2 node3</p>
+<p>​	do</p>
+<p>​		echo ———- zookeeper $i 状态 ———— </p>
+<p>​		ssh $i “&#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;bin&#x2F;zkServer.sh status”</p>
+<p>​	done</p>
+<p>};;</p>
+<p>Esac</p>
+<p>（3）配置zk脚本环境变量、zookeeper的环境变量</p>
+<p>vi &#x2F;etc&#x2F;profile</p>
+<p>#ZOOKEEPER_SHELL_HOME</p>
+<p>export ZKS_HOME&#x3D;&#x2F;export&#x2F;shell&#x2F;</p>
+<p>export PATH&#x3D;$PATH:$ZKS_HOME</p>
+<p>export ZK_HOME&#x3D;&#x2F;export&#x2F;server&#x2F;zookeeper</p>
+<p>export PATH&#x3D;${ZK_HOME}&#x2F;bin:$PATH</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps113.jpg" alt="img"> </p>
+<p>让环境变量生效source &#x2F;etc&#x2F;profile</p>
+<p>（4）vim .bashrc 设置环境路径</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps114.jpg" alt="img"> </p>
+<p>（5）chmod +x zkall.sh 增加可执行权限</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps115.jpg" alt="img"> </p>
+<p>（6）启动测试</p>
+<p>zkall.sh start</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps116.jpg" alt="img"> </p>
+<p>查看状态</p>
+<p>zkall.sh status</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps117.jpg" alt="img"> </p>
+<p>（7）zookeeper服务器常用命令</p>
+<p>启动 ZooKeeper 服务: .&#x2F;zkServer.sh start</p>
+<p>查看 ZooKeeper 服务状态: .&#x2F;zkServer.sh status</p>
+<p>停止 ZooKeeper 服务: .&#x2F;zkServer.sh stop </p>
+<p>重启 ZooKeeper 服务: .&#x2F;zkServer.sh restart </p>
+<p>\7. Zookeerper命令操作</p>
+<p>（1）连接ZooKeeper服务端</p>
+<p> .&#x2F;zkCli.sh -server node1:2181</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps118.jpg" alt="img"> </p>
+<p>\8. ZooKeeper JavaAPI 操作</p>
+<p>（1）建立连接</p>
+<p>client &#x3D; CuratorFrameworkFactory.builder()</p>
+<p>​        .connectString(“192.168.88.161:2181”)</p>
+<p>​        .sessionTimeoutMs(60 * 1000)</p>
+<p>​        .connectionTimeoutMs(15 * 1000)</p>
+<p>​        .retryPolicy(retryPolicy)</p>
+<p>​        .namespace(“bigdata”)</p>
+<p>​        .build();</p>
+<p>​    client.start();</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps119.jpg" alt="img"> </p>
+<p>（2）创建节点（带有数据）</p>
+<p>String path &#x3D; client.create().forPath(“&#x2F;app2”, “hehe”.getBytes());</p>
+<p>System.out.println(path);</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps120.jpg" alt="img"> </p>
+<p>（3）查询结点</p>
+<p>byte[] data &#x3D; client.getData().forPath(“&#x2F;app2”);</p>
+<p>System.out.println(new String(data));</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps121.jpg" alt="img"> </p>
+<p>（4）修改数据</p>
+<p> client.setData().forPath(“&#x2F;app2”, “bigdata”.getBytes());</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps122.jpg" alt="img"> </p>
+<p>（5）删除节点</p>
+<p> client.delete().forPath(“&#x2F;app1”);</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps123.jpg" alt="img"> </p>
+<p>（6）Watch事件监听</p>
+<p>​    TreeCache treeCache &#x3D; new TreeCache(client,”&#x2F;app2”);</p>
+<p>​    treeCache.getListenable().addListener(new TreeCacheListener() {</p>
+<p>​      @Override</p>
+<p>​      public void childEvent(CuratorFramework client, TreeCacheEvent event) throws Exception {</p>
+<p>​        System.out.println(“节点变化了”);</p>
+<p>​        System.out.println(event);</p>
+<p>​     }</p>
+<p>​    });  </p>
+<p>   treeCache.start();</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps124.jpg" alt="img"> </p>
+<p>（7）分布式锁实现</p>
+<p>public static void main(String[] args) {</p>
+<p>​    Ticket12306_old ticket12306_old &#x3D; new Ticket12306_old();</p>
+<p>​    Thread t1 &#x3D; new Thread(ticket12306_old,”携程”);</p>
+<p>​    Thread t2 &#x3D; new Thread(ticket12306_old,”飞猪”);</p>
+<p>​    t1.start();</p>
+<p>​    t2.start();</p>
+<p>}</p>
+<p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps125.jpg" alt="img"> </p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Kafka配置
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2023/06/14/Sqoop%E9%85%8D%E7%BD%AE/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Sqoop配置</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            syx &copy; 2023 
+            <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme - <a target="_blank" rel="noopener" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
