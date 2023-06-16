@@ -617,9 +617,9 @@
                     
                     <p><h2 id="zookeeper安装"><a href="#zookeeper安装" class="headerlink" title="zookeeper安装"></a><strong>zookeeper安装</strong></h2><p>安装前需要安装好jdk，检测集群时间是否同步，检测防火墙是否关闭，检测主机 ip映射有没有配置</p>
 <p>（1）在node1上切换到 &#x2F;export&#x2F;server 目录下，上传zookeeper压缩包并解压，设置一个软连接。</p>
-<p>切换到server目录下：cd &#x2F;export&#x2F;server</p>
-<p>解压zookeeper压缩包：tar -zxvf zookeeper.tar.gz -C &#x2F;export&#x2F;server&#x2F;  </p>
-<p>设置软连接：ln -s  &#x2F;export&#x2F;server&#x2F;zookeeper-3.4.6&#x2F; zookeeper </p>
+<p>切换到server目录下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server</span><br></pre></td></tr></table></figure>
+
 <p>
                 
             
@@ -722,8 +722,8 @@
                     <p><h2 id="一、sqoop安装"><a href="#一、sqoop安装" class="headerlink" title="一、sqoop安装"></a>一、<strong>sqoop安装</strong></h2><p>（1）首先需要有java、mysql、hadoop和hive环境</p>
 <p>（2）将以下下载到CentOS系统中，对其解压</p>
 <p><img src="/2023/06/14/Sqoop%E9%85%8D%E7%BD%AE/wps74.jpg" alt="img"> </p>
-<p>（3）解压在&#x2F;export&#x2F;server&#x2F;  tar xzf apache-flume-1.9.0-bin.tar.gz -C &#x2F;export&#x2F;server&#x2F;</p>
-<p>（4）添加软连接：ln -s apache-flume-1.9.0-bin flume</p>
+<p>（3）解压在&#x2F;export&#x2F;server&#x2F; </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xzf apache-flume-1.9.0-bin.tar.gz -C /export/server/</span><br></pre></td></tr></table></figure>
 <p>
                 
             
@@ -827,7 +827,7 @@
 <p>（1）上传flume的压缩包到&#x2F;export&#x2F;software下。</p>
 <p><img src="/2023/06/14/Flume%E9%85%8D%E7%BD%AE/wps1.jpg" alt="img"> </p>
 <p><img src="/2023/06/14/Flume%E9%85%8D%E7%BD%AE/wps2.jpg" alt="img"> </p>
-<p>（2）解压到&#x2F;export&#x2F;server目录下。tar -zxvf apache-flume-1.9.0-bin</p>
+<p>（2）解压到&#x2F;export&#x2F;server目录下</p>
 <p>
                 
             

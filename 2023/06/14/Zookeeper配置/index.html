@@ -9,12 +9,12 @@
         <meta name="keywords" content="搭建,Zookeeper" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="zookeeper安装安装前需要安装好jdk，检测集群时间是否同步，检测防火墙是否关闭，检测主机 ip映射有没有配置 （1）在node1上切换到 &#x2F;export&#x2F;server 目录下，上传zookeeper压缩包并解压，设置一个软连接。 切换到server目录下：cd &#x2F;export&#x2F;server 解压zookeeper压缩包：tar -zxvf zooke">
+    <meta name="description" content="zookeeper安装安装前需要安装好jdk，检测集群时间是否同步，检测防火墙是否关闭，检测主机 ip映射有没有配置 （1）在node1上切换到 &#x2F;export&#x2F;server 目录下，上传zookeeper压缩包并解压，设置一个软连接。 切换到server目录下： 1cd &#x2F;export&#x2F;server  解压zookeeper压缩包： 1tar -zxvf zookeeper.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Zookeeper配置">
 <meta property="og:url" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="ssyyxx123">
-<meta property="og:description" content="zookeeper安装安装前需要安装好jdk，检测集群时间是否同步，检测防火墙是否关闭，检测主机 ip映射有没有配置 （1）在node1上切换到 &#x2F;export&#x2F;server 目录下，上传zookeeper压缩包并解压，设置一个软连接。 切换到server目录下：cd &#x2F;export&#x2F;server 解压zookeeper压缩包：tar -zxvf zooke">
+<meta property="og:description" content="zookeeper安装安装前需要安装好jdk，检测集群时间是否同步，检测防火墙是否关闭，检测主机 ip映射有没有配置 （1）在node1上切换到 &#x2F;export&#x2F;server 目录下，上传zookeeper压缩包并解压，设置一个软连接。 切换到server目录下： 1cd &#x2F;export&#x2F;server  解压zookeeper压缩包： 1tar -zxvf zookeeper.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps96.jpg">
 <meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps97.jpg">
@@ -47,7 +47,7 @@
 <meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps124.jpg">
 <meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps125.jpg">
 <meta property="article:published_time" content="2023-06-14T05:20:32.000Z">
-<meta property="article:modified_time" content="2023-06-16T06:56:57.266Z">
+<meta property="article:modified_time" content="2023-06-16T09:57:22.407Z">
 <meta property="article:author" content="syx">
 <meta property="article:tag" content="搭建">
 <meta property="article:tag" content="Zookeeper">
@@ -428,111 +428,99 @@
         
             <h2 id="zookeeper安装"><a href="#zookeeper安装" class="headerlink" title="zookeeper安装"></a><strong>zookeeper安装</strong></h2><p>安装前需要安装好jdk，检测集群时间是否同步，检测防火墙是否关闭，检测主机 ip映射有没有配置</p>
 <p>（1）在node1上切换到 &#x2F;export&#x2F;server 目录下，上传zookeeper压缩包并解压，设置一个软连接。</p>
-<p>切换到server目录下：cd &#x2F;export&#x2F;server</p>
-<p>解压zookeeper压缩包：tar -zxvf zookeeper.tar.gz -C &#x2F;export&#x2F;server&#x2F;  </p>
-<p>设置软连接：ln -s  &#x2F;export&#x2F;server&#x2F;zookeeper-3.4.6&#x2F; zookeeper </p>
+<p>切换到server目录下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server</span><br></pre></td></tr></table></figure>
+
+<p>解压zookeeper压缩包：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf zookeeper.tar.gz -C /export/server/  </span><br></pre></td></tr></table></figure>
+
+<p>设置软连接：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf zookeeper.tar.gz -C /export/server/  </span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps96.jpg" alt="img"> </p>
 <p>\1. 修改环境变量（三台都修改）</p>
-<p>vi &#x2F;etc&#x2F;profile</p>
-<p>export ZOOKEEPER_HOME&#x3D;&#x2F;export&#x2F;server&#x2F;zookeeper</p>
-<p>export PATH&#x3D;$PATH:$ZOOKEEPER_HOME&#x2F;bin</p>
-<p>source &#x2F;etc&#x2F;profile</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br><span class="line"></span><br><span class="line">export ZOOKEEPER_HOME=/export/server/zookeeper</span><br><span class="line">export PATH=$PATH:$ZOOKEEPER_HOME/bin</span><br><span class="line"></span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps97.jpg" alt="img"> </p>
 <p>\2. 修改zookeeper配置文件</p>
-<p>cd &#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;conf&#x2F;  切换到conf&#x2F;目录下</p>
-<p>cp zoo_sample.cfg zoo.cfg  复制zoo_sample.cfg文件，文件名为zoo.cfg</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server/zookeeper/conf/  </span><br></pre></td></tr></table></figure>
+
+<p>切换到conf&#x2F;目录下，cp zoo_sample.cfg zoo.cfg  复制zoo_sample.cfg文件，文件名为zoo.cfg</p>
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps98.jpg" alt="img"> </p>
-<p>创建文件：mkdir -p &#x2F;export&#x2F;data&#x2F;zookeeper&#x2F;zkdatas&#x2F;   </p>
+<p>创建文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /export/data/zookeeper/zkdatas/   </span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps99.jpg" alt="img"> </p>
-<p>vim zoo.cfg </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim zoo.cfg </span><br></pre></td></tr></table></figure>
+
 <p>填充以下内容：</p>
-<p>#Zookeeper的数据存放目录</p>
-<p>dataDir &#x3D; &#x2F;export&#x2F;data&#x2F;zookeeper&#x2F;zkdatas&#x2F;</p>
-<p># 保留多少个快照</p>
-<p>autopurge.snapRetainCount &#x3D; 3</p>
-<p># 日志多少小时清理一次</p>
-<p>autopurge.purgeInterval &#x3D; 1</p>
-<p># 集群中服务器地址</p>
-<p>server.1 &#x3D; node1:2888:3888</p>
-<p>server.2 &#x3D; node2:2888:3888</p>
-<p>server.3 &#x3D; node3:2888:3888</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#Zookeeper的数据存放目录</span><br><span class="line">dataDir = /export/data/zookeeper/zkdatas/</span><br><span class="line"># 保留多少个快照</span><br><span class="line">autopurge.snapRetainCount = 3</span><br><span class="line"># 日志多少小时清理一次</span><br><span class="line">autopurge.purgeInterval = 1</span><br><span class="line"># 集群中服务器地址</span><br><span class="line">server.1 = node1:2888:3888</span><br><span class="line">server.2 = node2:2888:3888</span><br><span class="line">server.3 = node3:2888:3888</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps100.jpg" alt="img"> </p>
 <p>\3. 添加myid配置</p>
 <p>在node1主机的&#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;zkdatas&#x2F;这个路径下创建一个文件，文件名为myid ,文件内容为1</p>
-<p>echo 1 &gt; &#x2F;export&#x2F;data&#x2F;zookeeper&#x2F;zkdatas&#x2F;myid </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo 1 &gt; /export/data/zookeeper/zkdatas/myid </span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps101.jpg" alt="img"> </p>
 <p>\4. 安装包分发并修改myid的值</p>
 <p>在node1主机上，将安装包分发到其他机器</p>
 <p>第一台机器上面执行以下两个命令</p>
-<p>cd &#x2F;export&#x2F;server&#x2F;</p>
-<p>scp -r &#x2F;export&#x2F;server&#x2F;zookeeper-3.4.6&#x2F; root@node2:&#x2F;export&#x2F;server&#x2F;  </p>
-<p>分发node2</p>
-<p>scp -r &#x2F;export&#x2F;server&#x2F;zookeeper-3.4.6&#x2F; root@node3:&#x2F;export&#x2F;server&#x2F;  </p>
-<p>分发node3</p>
-<p>ln -s zookeeper-3.4.6&#x2F; zookeeper  建立软连接（node2 node3）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server/</span><br><span class="line"></span><br><span class="line">scp -r /export/server/zookeeper-3.4.6/ root@node2:/export/server/</span><br><span class="line">scp -r /export/server/zookeeper-3.4.6/ root@node3:/export/server/  </span><br></pre></td></tr></table></figure>
+
+<p>建立软连接（node2 node3）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s zookeeper-3.4.6/ zookeeper  </span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps102.jpg" alt="img"> </p>
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps103.jpg" alt="img"> </p>
-<p>echo 2 &gt; &#x2F;export&#x2F;data&#x2F;zookeeper&#x2F;zkdatas&#x2F;myid  （node2上执行）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo 2 &gt; /export/data/zookeeper/zkdatas/myid  </span><br></pre></td></tr></table></figure>
+
+<p>（node2上执行）</p>
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps104.jpg" alt="img"> </p>
-<p>echo 3 &gt; &#x2F;export&#x2F;data&#x2F;zookeeper&#x2F;zkdatas&#x2F;myid  （node3上执行）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo 3 &gt; /export/data/zookeeper/zkdatas/myid </span><br></pre></td></tr></table></figure>
+
+<p> （node3上执行）</p>
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps105.jpg" alt="img"> </p>
 <p>\5. 三台机器启动zookeeper服务</p>
-<p>（1）&#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;bin&#x2F;zkServer.sh start</p>
+<p>（1）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/export/server/zookeeper/bin/zkServer.sh start</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps106.jpg" alt="img"> </p>
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps107.jpg" alt="img"> </p>
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps108.jpg" alt="img"> </p>
-<p>（2）&#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;bin&#x2F;zkServer.sh status 三台主机分别查看启动状态</p>
+<p>（2）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/export/server/zookeeper/bin/zkServer.sh status</span><br></pre></td></tr></table></figure>
+
+<p> 三台主机分别查看启动状态</p>
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps109.jpg" alt="img"><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps110.jpg" alt="img"> </p>
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps111.jpg" alt="img"> </p>
 <p>\6. 编写一个脚本批量启动node1，2，3的zookeeper</p>
 <p>（1）创建shell目录</p>
-<p>mkdir &#x2F;export&#x2F;shell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /export/shell</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps112.jpg" alt="img"> </p>
 <p>（2）再此目录下建立一个zkall.sh文件</p>
-<p>vim zkall.sh</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim zkall.sh</span><br></pre></td></tr></table></figure>
+
 <p>添加以下内容：</p>
-<p>#!&#x2F;bin&#x2F;bash</p>
-<p>case $1 in</p>
-<p>“start”){</p>
-<p>​	for i in node1 node2 node3</p>
-<p>do</p>
-<p>​		echo ———- zookeeper $i 启动 ————</p>
-<p>​		ssh $i “&#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;bin&#x2F;zkServer.sh start”</p>
-<p>​	done</p>
-<p>};;</p>
-<p>“stop”){</p>
-<p>​	for i in node1 node2 node3</p>
-<p>​	do</p>
-<p>​		echo ———- zookeeper $i 停止 ———— </p>
-<p>​		ssh $i “&#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;bin&#x2F;zkServer.sh stop”</p>
-<p>​	done</p>
-<p>};;</p>
-<p>“status”){</p>
-<p>​	for i in node1 node2 node3</p>
-<p>​	do</p>
-<p>​		echo ———- zookeeper $i 状态 ———— </p>
-<p>​		ssh $i “&#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;bin&#x2F;zkServer.sh status”</p>
-<p>​	done</p>
-<p>};;</p>
-<p>Esac</p>
-<p>（3）配置zk脚本环境变量、zookeeper的环境变量</p>
-<p>vi &#x2F;etc&#x2F;profile</p>
-<p>#ZOOKEEPER_SHELL_HOME</p>
-<p>export ZKS_HOME&#x3D;&#x2F;export&#x2F;shell&#x2F;</p>
-<p>export PATH&#x3D;$PATH:$ZKS_HOME</p>
-<p>export ZK_HOME&#x3D;&#x2F;export&#x2F;server&#x2F;zookeeper</p>
-<p>export PATH&#x3D;${ZK_HOME}&#x2F;bin:$PATH</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">case $1 in</span><br><span class="line">&quot;start&quot;)&#123;</span><br><span class="line">for i in node1 node2 node3</span><br><span class="line">do</span><br><span class="line">echo ---------- zookeeper $i 启动 ------------</span><br><span class="line">ssh $i &quot;/export/server/zookeeper/bin/zkServer.sh start&quot;</span><br><span class="line">done</span><br><span class="line">&#125;;;</span><br><span class="line">&quot;stop&quot;)&#123;</span><br><span class="line">for i in node1 node2 node3</span><br><span class="line">do</span><br><span class="line">echo ---------- zookeeper $i 停止 ------------ </span><br><span class="line">ssh $i &quot;/export/server/zookeeper/bin/zkServer.sh stop&quot;</span><br><span class="line">done</span><br><span class="line">&#125;;;</span><br><span class="line">&quot;status&quot;)&#123;</span><br><span class="line">for i in node1 node2 node3</span><br><span class="line">do</span><br><span class="line">echo ---------- zookeeper $i 状态 ------------ </span><br><span class="line">ssh $i &quot;/export/server/zookeeper/bin/zkServer.sh status&quot;</span><br><span class="line">done</span><br><span class="line">&#125;;;</span><br><span class="line">Esac</span><br><span class="line">（3）配置zk脚本环境变量、zookeeper的环境变量</span><br><span class="line">vi /etc/profile</span><br><span class="line">#ZOOKEEPER_SHELL_HOME</span><br><span class="line">export ZKS_HOME=/export/shell/</span><br><span class="line">export PATH=$PATH:$ZKS_HOME</span><br><span class="line">export ZK_HOME=/export/server/zookeeper</span><br><span class="line">export PATH=$&#123;ZK_HOME&#125;/bin:$PATH</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps113.jpg" alt="img"> </p>
-<p>让环境变量生效source &#x2F;etc&#x2F;profile</p>
+<p>让环境变量生效</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+
+
 <p>（4）vim .bashrc 设置环境路径</p>
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps114.jpg" alt="img"> </p>
 <p>（5）chmod +x zkall.sh 增加可执行权限</p>
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps115.jpg" alt="img"> </p>
 <p>（6）启动测试</p>
-<p>zkall.sh start</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zkall.sh start</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps116.jpg" alt="img"> </p>
 <p>查看状态</p>
-<p>zkall.sh status</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zkall.sh status</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps117.jpg" alt="img"> </p>
 <p>（7）zookeeper服务器常用命令</p>
 <p>启动 ZooKeeper 服务: .&#x2F;zkServer.sh start</p>
@@ -541,52 +529,37 @@
 <p>重启 ZooKeeper 服务: .&#x2F;zkServer.sh restart </p>
 <p>\7. Zookeerper命令操作</p>
 <p>（1）连接ZooKeeper服务端</p>
-<p> .&#x2F;zkCli.sh -server node1:2181</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./zkCli.sh -server node1:2181</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps118.jpg" alt="img"> </p>
 <p>\8. ZooKeeper JavaAPI 操作</p>
 <p>（1）建立连接</p>
-<p>client &#x3D; CuratorFrameworkFactory.builder()</p>
-<p>​        .connectString(“192.168.88.161:2181”)</p>
-<p>​        .sessionTimeoutMs(60 * 1000)</p>
-<p>​        .connectionTimeoutMs(15 * 1000)</p>
-<p>​        .retryPolicy(retryPolicy)</p>
-<p>​        .namespace(“bigdata”)</p>
-<p>​        .build();</p>
-<p>​    client.start();</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">client = CuratorFrameworkFactory.builder()</span><br><span class="line">.connectString(&quot;192.168.88.161:2181&quot;)</span><br><span class="line">.sessionTimeoutMs(60 * 1000)</span><br><span class="line">.connectionTimeoutMs(15 * 1000)</span><br><span class="line">.retryPolicy(retryPolicy)</span><br><span class="line">.namespace(&quot;bigdata&quot;)</span><br><span class="line">.build();</span><br><span class="line">client.start();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps119.jpg" alt="img"> </p>
 <p>（2）创建节点（带有数据）</p>
-<p>String path &#x3D; client.create().forPath(“&#x2F;app2”, “hehe”.getBytes());</p>
-<p>System.out.println(path);</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String path = client.create().forPath(&quot;/app2&quot;, &quot;hehe&quot;.getBytes());</span><br><span class="line"></span><br><span class="line">System.out.println(path);</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps120.jpg" alt="img"> </p>
 <p>（3）查询结点</p>
-<p>byte[] data &#x3D; client.getData().forPath(“&#x2F;app2”);</p>
-<p>System.out.println(new String(data));</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">byte[] data = client.getData().forPath(&quot;/app2&quot;);</span><br><span class="line"></span><br><span class="line">System.out.println(new String(data));</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps121.jpg" alt="img"> </p>
 <p>（4）修改数据</p>
-<p> client.setData().forPath(“&#x2F;app2”, “bigdata”.getBytes());</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client.setData().forPath(&quot;/app2&quot;, &quot;bigdata&quot;.getBytes());</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps122.jpg" alt="img"> </p>
 <p>（5）删除节点</p>
-<p> client.delete().forPath(“&#x2F;app1”);</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client.delete().forPath(&quot;/app1&quot;);</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps123.jpg" alt="img"> </p>
 <p>（6）Watch事件监听</p>
-<p>​    TreeCache treeCache &#x3D; new TreeCache(client,”&#x2F;app2”);</p>
-<p>​    treeCache.getListenable().addListener(new TreeCacheListener() {</p>
-<p>​      @Override</p>
-<p>​      public void childEvent(CuratorFramework client, TreeCacheEvent event) throws Exception {</p>
-<p>​        System.out.println(“节点变化了”);</p>
-<p>​        System.out.println(event);</p>
-<p>​     }</p>
-<p>​    });  </p>
-<p>   treeCache.start();</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">TreeCache treeCache = new TreeCache(client,&quot;/app2&quot;);</span><br><span class="line">treeCache.getListenable().addListener(new TreeCacheListener() &#123;</span><br><span class="line">@Override</span><br><span class="line">public void childEvent(CuratorFramework client, TreeCacheEvent event) throws Exception &#123;</span><br><span class="line">System.out.println(&quot;节点变化了&quot;);</span><br><span class="line">System.out.println(event);</span><br><span class="line">&#125;</span><br><span class="line">&#125;); </span><br><span class="line">treeCache.start();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps124.jpg" alt="img"> </p>
 <p>（7）分布式锁实现</p>
-<p>public static void main(String[] args) {</p>
-<p>​    Ticket12306_old ticket12306_old &#x3D; new Ticket12306_old();</p>
-<p>​    Thread t1 &#x3D; new Thread(ticket12306_old,”携程”);</p>
-<p>​    Thread t2 &#x3D; new Thread(ticket12306_old,”飞猪”);</p>
-<p>​    t1.start();</p>
-<p>​    t2.start();</p>
-<p>}</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">Ticket12306_old ticket12306_old = new Ticket12306_old();</span><br><span class="line">Thread t1 = new Thread(ticket12306_old,&quot;携程&quot;);</span><br><span class="line">Thread t2 = new Thread(ticket12306_old,&quot;飞猪&quot;);</span><br><span class="line">t1.start();</span><br><span class="line">t2.start();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Zookeeper%E9%85%8D%E7%BD%AE/wps125.jpg" alt="img"> </p>
 
             </div>

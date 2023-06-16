@@ -9,12 +9,12 @@
         <meta name="keywords" content="搭建,Kafka" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="kafka安装安装Kafka集群 （1）上传安装包   \1. 修改配置文件 修改文件内容 #进入配置文件目录：cd &#x2F;export&#x2F;server&#x2F;kafka_2.12-2.4.1&#x2F;config #编辑配置文件vi server.properties #为依次增长的:0、1、2、3、4,集群中唯一 id – 从0开始，每台不能重复，第一块要改的。broker">
+    <meta name="description" content="kafka安装安装Kafka集群 （1）上传安装包   \1. 修改配置文件 修改文件内容 #进入配置文件目录： 1cd &#x2F;export&#x2F;server&#x2F;kafka_2.12-2.4.1&#x2F;config  #编辑配置文件 1vi server.properties  #为依次增长的:0、1、2、3、4,集群中唯一 id – 从0开始，每台不能重复，第一块要改的。 1broker.id&#x3D;0   #数据存">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kafka配置">
 <meta property="og:url" content="http://ssyyxx123.github.io/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="ssyyxx123">
-<meta property="og:description" content="kafka安装安装Kafka集群 （1）上传安装包   \1. 修改配置文件 修改文件内容 #进入配置文件目录：cd &#x2F;export&#x2F;server&#x2F;kafka_2.12-2.4.1&#x2F;config #编辑配置文件vi server.properties #为依次增长的:0、1、2、3、4,集群中唯一 id – 从0开始，每台不能重复，第一块要改的。broker">
+<meta property="og:description" content="kafka安装安装Kafka集群 （1）上传安装包   \1. 修改配置文件 修改文件内容 #进入配置文件目录： 1cd &#x2F;export&#x2F;server&#x2F;kafka_2.12-2.4.1&#x2F;config  #编辑配置文件 1vi server.properties  #为依次增长的:0、1、2、3、4,集群中唯一 id – 从0开始，每台不能重复，第一块要改的。 1broker.id&#x3D;0   #数据存">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps126.jpg">
 <meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps127.jpg">
@@ -42,7 +42,7 @@
 <meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps149.jpg">
 <meta property="og:image" content="http://ssyyxx123.github.io/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps150.jpg">
 <meta property="article:published_time" content="2023-06-14T05:20:55.000Z">
-<meta property="article:modified_time" content="2023-06-16T06:57:12.186Z">
+<meta property="article:modified_time" content="2023-06-16T10:05:27.239Z">
 <meta property="article:author" content="syx">
 <meta property="article:tag" content="搭建">
 <meta property="article:tag" content="Kafka">
@@ -426,89 +426,123 @@
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps126.jpg" alt="img"> </p>
 <p>\1. 修改配置文件</p>
 <p>修改文件内容</p>
-<p>#进入配置文件目录：cd &#x2F;export&#x2F;server&#x2F;kafka_2.12-2.4.1&#x2F;config</p>
-<p>#编辑配置文件vi server.properties</p>
-<p>#为依次增长的:0、1、2、3、4,集群中唯一 id – 从0开始，每台不能重复，第一块要改的。broker.id&#x3D;0 </p>
-<p>#数据存储的目录，第二块要改的：log.dirs&#x3D;&#x2F;export&#x2F;data&#x2F;kafka-logs </p>
-<p>#指定 zk 集群地址，第三块要改的zookeeper.connect&#x3D;node1:2181，</p>
-<p>node2:2181</p>
+<p>#进入配置文件目录：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server/kafka_2.12-2.4.1/config</span><br></pre></td></tr></table></figure>
+
+<p>#编辑配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi server.properties</span><br></pre></td></tr></table></figure>
+
+<p>#为依次增长的:0、1、2、3、4,集群中唯一 id – 从0开始，每台不能重复，第一块要改的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">broker.id=0 </span><br></pre></td></tr></table></figure>
+
+<p>#数据存储的目录，第二块要改的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log.dirs=/export/data/kafka-logs </span><br></pre></td></tr></table></figure>
+
+<p>#指定 zk 集群地址，第三块要改的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zookeeper.connect=node1:2181，node2:2181</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps127.jpg" alt="img"> </p>
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps128.jpg" alt="img"> </p>
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps129.jpg" alt="img"> </p>
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps130.jpg" alt="img"> </p>
 <p>（2）分发kafla</p>
-<p>cd &#x2F;export&#x2F;server&#x2F;</p>
-<p>syncfile &#x2F;export&#x2F;server&#x2F;kafka_2.12-2.4.1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server/</span><br><span class="line"></span><br><span class="line">syncfile /export/server/kafka_2.12-2.4.1</span><br></pre></td></tr></table></figure>
+
+
+
 <p>（3）配置环境变量</p>
-<p>export KAFKA_HOME&#x3D;&#x2F;export&#x2F;server&#x2F;kafka_2.12-2.4.1 </p>
-<p>export PATH&#x3D;$PATH:$KAFKA_HOME&#x2F;bin </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export KAFKA_HOME=/export/server/kafka_2.12-2.4.1 </span><br><span class="line">export PATH=$PATH:$KAFKA_HOME/bin </span><br></pre></td></tr></table></figure>
+
 <p>注意:还需要分发环境变量！</p>
-<p>syncfile &#x2F;etc&#x2F;profile</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">syncfile /etc/profile</span><br></pre></td></tr></table></figure>
+
+
+
 <p>（4）在node2上修改配置文件</p>
-<p>vim &#x2F;export&#x2F;server&#x2F;kafka_2.12-2.4.1&#x2F;config&#x2F;server.propertie</p>
-<p>更改broker.id&#x3D;1</p>
-<p>log.dirs&#x3D;&#x2F;export&#x2F;data&#x2F;kafka-logs</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /export/server/kafka_2.12-2.4.1/config/server.propertie</span><br></pre></td></tr></table></figure>
+
+<p>更改</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">broker.id=1</span><br><span class="line">log.dirs=/export/data/kafka-logs</span><br></pre></td></tr></table></figure>
+
+
+
 <p>（5）启动集群（各个节点）</p>
-<p>启动：kafka-server-start.sh -daemon &#x2F;export&#x2F;server&#x2F;kafka_2.12-2.4.1&#x2F;config&#x2F;server.properties</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-server-start.sh -daemon /export/server/kafka_2.12-2.4.1/config/server.properties</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps131.jpg" alt="img"> </p>
-<p>关闭：kafka-server-stop.sh stop</p>
+<p>关闭</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-server-stop.sh stop</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps132.jpg" alt="img"> </p>
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps133.jpg" alt="img"> </p>
 <p>（6）kafka命令行操作</p>
 <p>1）创建topic</p>
-<p>基本方式</p>
-<p>.&#x2F;kafka-topics.sh –create –topic tpc_1 –partitions 2 –replication-factor 2 –zookeeper node1:2181</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./kafka-topics.sh --create --topic tpc_1 --partitions 2 --replication-factor 2 --zookeeper node1:2181</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps134.jpg" alt="img"> </p>
 <p>2）手动指定副本的存储位置</p>
-<p>kafka-topics.sh –create –topic tpc_1 –zookeeper node1:2181 –replica-assignment 0:1,1:2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh --create --topic tpc_1 --zookeeper node1:2181 --replica-assignment 0:1,1:2</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps135.jpg" alt="img"> </p>
 <p>3）查看目前Kafka中的主题</p>
-<p>kafka-topics.sh –list –bootstrap-server node1:9092</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh --list --bootstrap-server node1:9092</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps136.jpg" alt="img"> </p>
 <p>4）查看topic</p>
 <p>列出当前系统中的所有 topic</p>
-<p>kafka-topics.sh –zookeeper node1:2181,node2:2181,node3:2181 –list</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh --zookeeper node1:2181,node2:2181,node3:2181 --list</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps137.jpg" alt="img"> </p>
 <p>5）查看 topic 详细信息</p>
-<p>kafka-topics.sh –create –topic tpc_1 –zookeeper node1:2181 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh --create --topic tpc_1 --zookeeper node1:2181 </span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps138.jpg" alt="img"> </p>
-<p>kafka-topics.sh –describe –topic tpc_1 –zookeeper node1:2181</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh --describe --topic tpc_1 --zookeeper node1:2181</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps139.jpg" alt="img"> </p>
 <p>6）增加分区数</p>
-<p>kafka-topics.sh –alter –topic tpc_1 –partitions 3 –zookeeper node1:2181</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh --alter --topic tpc_1 --partitions 3 --zookeeper node1:2181</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps140.jpg" alt="img"> </p>
 <p>7）动态配置topic 参数</p>
-<p>添加参数</p>
-<p>kafka-configs.sh –zookeeper node1:2181 –entity-type topics –entity-name tpc_1 –alter –add-config compression.type&#x3D;gzip </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-configs.sh --zookeeper node1:2181 --entity-type topics --entity-name tpc_1 --alter --add-config compression.type=gzip </span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps141.jpg" alt="img"> </p>
 <p>8）删除参数</p>
-<p>kafka-configs.sh –zookeeper node1:2181 –entity-type topics –entity-name tpc_1 –alter –delete-config compression.type</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-configs.sh --zookeeper node1:2181 --entity-type topics --entity-name tpc_1 --alter --delete-config compression.type</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps142.jpg" alt="img"> </p>
 <p>9）生产消息到Kafka并进行消费</p>
-<p>kafka-console-producer.sh –broker-list node1:9092, node2:9092, node3:9092 –topic tpc_1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-console-producer.sh --broker-list node1:9092, node2:9092, node3:9092 --topic tpc_1</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps143.jpg" alt="img"> </p>
 <p>10）消费信息（从头开始）</p>
-<p>kafka-console-consumer.sh –bootstrap-server node1:9092, node2:9092, node1:9092 –topic tpc_1 –from-beginning</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-console-consumer.sh --bootstrap-server node1:9092, node2:9092, node1:9092 --topic tpc_1 --from-beginning</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps144.jpg" alt="img"> </p>
 <p>11）指定要消费的分区,和要消费的起始 offset</p>
-<p>kafka-console-consumer.sh –bootstrap-server node1:9092,node2:9092,node3:9092 –topic tcp_1 –offset 2 –partition 0</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-console-consumer.sh --bootstrap-server node1:9092,node2:9092,node3:9092 --topic tcp_1 --offset 2 --partition 0</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps145.jpg" alt="img"> </p>
 <p>12）配置管理kafka-configs</p>
-<p>kafka-configs.sh zookeeper node1: 2181 –describe –entity-type brokers –entity-name 0 –zookeeper node1:2181</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-configs.sh zookeeper node1: 2181 --describe --entity-type brokers --entity-name 0 --zookeeper node1:2181</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps146.jpg" alt="img"> </p>
 <p>Kafka基准测试</p>
 <p>1.三分区，两副本</p>
-<p>kafka-topics.sh –create –topic tpc_3 –partitions 2 –replication-factor 1 –zookeeper node1:2181</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh --create --topic tpc_3 --partitions 2 --replication-factor 1 --zookeeper node1:2181</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps147.jpg" alt="img"> </p>
-<p>kafka-producer-perf-test.sh –topic tpc_3 –num-records 1000 –record-size 1024 –throughput -1 –producer-props bootstrap.servers&#x3D;node1:9092 acks&#x3D;1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-producer-perf-test.sh --topic tpc_3 --num-records 1000 --record-size 1024 --throughput -1 --producer-props bootstrap.servers=node1:9092 acks=1</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps148.jpg" alt="img"> </p>
 <p>\2. 四分区，两副本</p>
-<p>kafka-topics.sh –create –topic tpc_4 –partitions 2 –replication-factor 2 –zookeeper node1:2181</p>
-<p>kafka-producer-perf-test.sh –topic tpc_4 –num-records 1000 –record-size 1024 –throughput -1 –producer-props bootstrap.servers&#x3D;node1:9092 acks&#x3D;1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh --create --topic tpc_4 --partitions 2 --replication-factor 2 --zookeeper node1:2181</span><br><span class="line"></span><br><span class="line">kafka-producer-perf-test.sh --topic tpc_4 --num-records 1000 --record-size 1024 --throughput -1 --producer-props bootstrap.servers=node1:9092 acks=1</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps149.jpg" alt="img"> </p>
 <p>\3. 七分区，十二副本</p>
-<p>kafka-topics.sh –create –topic tpc_7 –partitions 12 –replication-factor 1 –zookeeper node1:2181</p>
-<p>kafka-producer-perf-test.sh –topic tpc_7 –num-records 1000 –record-size 1024 –throughput -1 –producer-props bootstrap.servers&#x3D;node1:9092 acks&#x3D;1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh --create --topic tpc_7 --partitions 12 --replication-factor 1 --zookeeper node1:2181</span><br><span class="line"></span><br><span class="line">kafka-producer-perf-test.sh --topic tpc_7 --num-records 1000 --record-size 1024 --throughput -1 --producer-props bootstrap.servers=node1:9092 acks=1</span><br></pre></td></tr></table></figure>
+
 <p><img src="/2023/06/14/Kafka%E9%85%8D%E7%BD%AE/wps150.jpg" alt="img"> </p>
 <p>由此可知：在一定限度内：副本增多，吞吐量变大。</p>
 
